@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-application
+  namespace: kube-dev
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: customer-application
+  template:
+    metadata:
+      labels:
+        app: customer-application
+    spec:
+      containers:
+        - name: customer-application
+          image: gsoninagarro/customer-application:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: customer-configmap
+          resources:
+            requests:
+              cpu: 5m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 850Mi

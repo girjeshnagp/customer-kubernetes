@@ -21,9 +21,9 @@ public class Customer {
         private Long customerId;
         @Column(name = "CUSTOMER_NAME")
         private String customerName;
-        @Column(name = "CUSTOMER_EMAIL")
+        @Column(name = "CUSTOMER_EMAIL", unique = true)
         private String customerEmail;
-        @Column(name = "CUSTOMER_PHONE")
+        @Column(name = "CUSTOMER_PHONE", unique = true)
         private String customerPhone;
         @Column(name = "CUSTOMER_ADDRESS")
         private String customerAddress;

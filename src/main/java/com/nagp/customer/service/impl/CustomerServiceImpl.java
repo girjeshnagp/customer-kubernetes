@@ -2,6 +2,7 @@ package com.nagp.customer.service.impl;
 
 import com.nagp.customer.dto.CustomerDto;
 import com.nagp.customer.mapper.ModelDtoMapper;
+import com.nagp.customer.model.Customer;
 import com.nagp.customer.repository.CustomerRepository;
 import com.nagp.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto createCustomer(String customerName) {
-        var customer = CustomerDto.builder().customerName(customerName).build();
-        return null;
+    public List<CustomerDto> createCustomer(CustomerDto customerDto) {
+        customerRepository.save(modelDtoMapper.toModel(customerDto));
+        return getAllCustomers();
+    }
+
+    @Override
+    public List<CustomerDto> updateCustomer(Long customerId, CustomerDto customerDto) {
+        customerRepository.save(modelDtoMapper.toModel(customerDto));
+        return getAllCustomers();
+    }
+
+    @Override
+    public List<CustomerDto> deleteCustomer(Long customerId) {
+        customerRepository.deleteById(customerId);
+        return getAllCustomers();
     }
 }

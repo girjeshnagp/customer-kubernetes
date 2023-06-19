@@ -9,5 +9,9 @@ public interface CustomerService {
 
     CustomerDto getCustomerById(Long customerId);
 
-    CustomerDto createCustomer(String customerName);
+    List<CustomerDto> createCustomer(CustomerDto customerDto);
+
+    List<CustomerDto> updateCustomer(Long customerId, CustomerDto customerDto);
+
+    List<CustomerDto> deleteCustomer(Long customerId);
 }

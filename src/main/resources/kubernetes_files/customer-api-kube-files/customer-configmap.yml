@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: customer-configmap
+  namespace: kube-dev
+data:
+  POSTGRES_HOST: "postgres-statefulset-0.postgres-headless-service.kube-dev.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "mydatabase"
+  POSTGRES_USER: "myuser"
